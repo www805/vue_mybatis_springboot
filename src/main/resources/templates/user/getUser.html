@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表页面</title>
+</head>
+<body>
+    <h1 th:text="${getUser.title}"></h1>
+    <div id="app">
+        <p v-text="msg"></p>
+        <button @click="textAlert(msg)">点击有惊喜</button>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>账号</td>
+                    <td>密码</td>
+                    <td>权限</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(user, key) in users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.userName}}</td>
+                    <td>{{user.passWord}}</td>
+                    <td>{{user.realName}}</td>
+                    <td><a href="javascript:;" @click="delUser(user.id)">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <div>
+                <label>账号：</label>
+                <input type="text" v-model="user.userName" name="userName" value="">
+            </div>
+            <div>
+                <label>密码：</label>
+                <input type="text" v-model="user.passWord" name="passWord" value="">
+            </div>
+            <div>
+                <label>角色：</label>
+                <input type="text" v-model="user.realName" name="realName" value="">
+            </div>
+            <button @click="addUser">新增用户</button>
+        </div>
+
+    </div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="/js/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script type="text/javascript">
+
+    var app = new Vue({
+        el:"#app",
+        data:{
+            msg:"wwwwwwww",
+            user:{
+                id:"",
+                userName:"",
+                passWord:"",
+                realName:""
+            },
+            users:null
+        },
+        methods:{
+            textAlert:function (ss) {
+                alert(this.users);
+            },
+            initUser:function () {
+                //获取数据
+                axios.post("/user/getUserAll").then(function (value) {
+                    app.users = value.data;
+                }).catch(function (reason) {
+                    console.log(reason);
+                });
+            },
+            addUser: function () {
+
+                console.log(this.user);
+
+                axios.post("/user/addUser",{
+                    userName: this.user.userName,
+                    passWord: this.user.passWord,
+                    realName: this.user.realName
+                }).then(function (value) {
+
+                    console.log(value);
+
+                    if(value.data == "新增成功"){
+                        app.initUser();
+                        alert(value.data);
+                    }
+
+                }).catch(function (reason) {
+
+                });
+            },
+            delUser:function (id) {
+                axios.post("/user/delUser/" + id).then(function (value) {
+                    console.log(value);
+                    app.initUser();
+                    alert(value.data);
+                });
+            }
+        },
+        created: function () {
+            this.initUser();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
