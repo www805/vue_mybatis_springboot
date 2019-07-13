@@ -21,13 +21,13 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation(value = "获取用户列表", notes = "获取所有用户信息")
-    @RequestMapping("/getUserAll")
+    @GetMapping("/getUserAll")
     public List<User> getUserAll(){
         return userService.getUserAll();
     }
 
     @ApiOperation(value = "通过ID查询指定用户", notes = "获取一个用户")
-    @RequestMapping("/getUserByid/{id}")
+    @GetMapping("/getUserByid/{id}")
     public User getUserByid(@PathVariable int id){
         return userService.getUserByid(id);
     }
@@ -39,14 +39,14 @@ public class UserController {
     }
 
     @ApiOperation(value = "删除用户", notes = "通过用户id删除一个用户")
-    @RequestMapping("/delUser/{id}")
+    @DeleteMapping("/delUser/{id}")
     public String delUser(@PathVariable("id") int id){
         return userService.delUser(id);
     }
 
 
     @ApiOperation(value = "修改用户", notes = "修改一个用户")
-    @RequestMapping("/updateUser")
+    @PutMapping("/updateUser")
     public String updateUser(@RequestBody @Valid User user){
         return userService.updateUser(user);
     }
