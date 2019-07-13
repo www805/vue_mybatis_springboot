@@ -1,10 +1,27 @@
 package com.zhuang.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@ApiModel(value = "com.zhuang.entity.User", description = "用户实体类")
 public class User {
 
+    @ApiModelProperty(value = "用户id", hidden = true)
     private Integer id;
+
+    @ApiModelProperty(value = "账号", required = true)
+    @NotBlank(message = "账号不能为空")
     private String userName;
+
+    @ApiModelProperty(value = "密码", required = true)
+    @NotBlank(message = "密码不能为空")
     private String passWord;
+
+    @ApiModelProperty(value = "用户角色", required = true)
+    @NotBlank(message = "角色不能为空")
     private String realName;
 
     public Integer getId() {

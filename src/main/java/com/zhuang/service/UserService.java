@@ -13,4 +13,7 @@ public interface UserService {
     String addUser(User user);
 
     String delUser(int id);
+
+    String updateUser(User user);
+
 }

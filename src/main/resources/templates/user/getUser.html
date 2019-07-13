@@ -91,6 +91,9 @@
                     console.log(value);
 
                     if(value.data == "新增成功"){
+                        app.user.userName = "";
+                        app.user.passWord = "";
+                        app.user.realName = "";
                         app.initUser();
                         alert(value.data);
                     }

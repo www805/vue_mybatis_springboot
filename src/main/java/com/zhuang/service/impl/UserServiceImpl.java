@@ -45,5 +45,11 @@ public class UserServiceImpl implements UserService {
         return delete == 1 ? "删除成功" : "删除失败";
     }
 
+    @Override
+    public String updateUser(User user) {
+
+        return null;
+    }
+
 
 }
