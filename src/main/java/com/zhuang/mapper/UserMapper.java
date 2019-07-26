@@ -21,4 +21,7 @@ public interface UserMapper {
     //删除用户
     int delUser(int id);
 
+    //获取用户、角色、权限信息
+    List<User> getUserList();
+
 }

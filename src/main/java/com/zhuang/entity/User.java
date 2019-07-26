@@ -5,9 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel(value = "com.zhuang.entity.User", description = "用户实体类")
-public class User {
+public class User implements Serializable {
 
     @ApiModelProperty(value = "用户id", hidden = true)
     private Integer id;
@@ -23,6 +26,8 @@ public class User {
     @ApiModelProperty(value = "用户角色", required = true)
     @NotBlank(message = "角色不能为空")
     private String realName;
+
+    private List<Role> roles = new ArrayList<Role>();//一个人可能会有多个角色
 
     public Integer getId() {
         return id;
@@ -56,6 +61,15 @@ public class User {
         this.realName = realName;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -63,6 +77,7 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +
                 ", realName='" + realName + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

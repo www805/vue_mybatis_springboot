@@ -51,5 +51,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public List<User> getUserList() {
+        return userMapper.getUserList();
+    }
+
 
 }

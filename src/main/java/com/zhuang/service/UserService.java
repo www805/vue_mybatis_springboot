@@ -16,4 +16,6 @@ public interface UserService {
 
     String updateUser(User user);
 
+    List<User> getUserList();
+
 }

@@ -7,7 +7,18 @@
         <result column="userName" jdbcType="VARCHAR" property="userName" />
         <result column="passWord" jdbcType="VARCHAR" property="passWord" />
         <result column="realName" jdbcType="VARCHAR" property="realName" />
+
+        <!--用户有多个角色-->
+        <collection property="roles" ofType="com.zhuang.entity.Role">
+            <result column="rolename" property="rolename"/>
+
+            <!--角色有多个权限-->
+            <collection property="permissions" ofType="com.zhuang.entity.Permission">
+                <result column="permissionname" javaType="permissionname"/>
+            </collection>
+        </collection>
     </resultMap>
+
 
     <select id="getUserAll" resultType="com.zhuang.entity.User">
         select * from user
@@ -24,5 +35,19 @@
     <delete id="delUser" parameterType="int">
         delete from user where id = #{id}
     </delete>
+
+    <select id="getUserList" resultType="BaseResultMap">
+        SELECT
+            u.id id,
+            u.userName userName,
+            r.rolename rolename,
+            p.permissionname permissionname
+        FROM
+            USER u
+            LEFT JOIN userrole ur ON u.id = ur.id
+            LEFT JOIN role r ON ur.roleid = r.id
+            LEFT JOIN rolepermission rp ON r.id = rp.roleid
+            LEFT JOIN permission p ON rp.permissionid = p.id
+    </select>
 
 </mapper>

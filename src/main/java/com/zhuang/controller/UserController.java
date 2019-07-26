@@ -22,33 +22,38 @@ public class UserController {
 
     @ApiOperation(value = "获取用户列表", notes = "获取所有用户信息")
     @GetMapping("/getUserAll")
-    public List<User> getUserAll(){
+    public List<User> getUserAll() {
         return userService.getUserAll();
     }
 
     @ApiOperation(value = "通过ID查询指定用户", notes = "获取一个用户")
     @GetMapping("/getUserByid/{id}")
-    public User getUserByid(@PathVariable int id){
+    public User getUserByid(@PathVariable int id) {
         return userService.getUserByid(id);
     }
 
     @ApiOperation(value = "创建用户", notes = "创建一个用户")
     @PostMapping("/addUser")
-    public String addUser(@ApiParam(value = "创建参数", required = true) @RequestBody @Valid User user){
+    public String addUser(@ApiParam(value = "创建参数", required = true) @RequestBody @Valid User user) {
         return userService.addUser(user);
     }
 
     @ApiOperation(value = "删除用户", notes = "通过用户id删除一个用户")
     @DeleteMapping("/delUser/{id}")
-    public String delUser(@PathVariable("id") int id){
+    public String delUser(@PathVariable("id") int id) {
         return userService.delUser(id);
     }
 
 
     @ApiOperation(value = "修改用户", notes = "修改一个用户")
     @PutMapping("/updateUser")
-    public String updateUser(@RequestBody @Valid User user){
+    public String updateUser(@RequestBody @Valid User user) {
         return userService.updateUser(user);
+    }
+
+    @GetMapping("getUserList")
+    public List<User> getUserList(){
+        return userService.getUserList();
     }
 
 }
