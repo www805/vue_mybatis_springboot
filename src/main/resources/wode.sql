@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2019-07-26 19:00:27
+Date: 2019-07-27 18:13:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -115,7 +115,11 @@ CREATE TABLE `userrole` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `userid` int(11) DEFAULT NULL COMMENT '用户id',
   `roleid` int(11) DEFAULT NULL COMMENT '角色id',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  KEY `roleid` (`roleid`),
+  CONSTRAINT `userrole_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
+  CONSTRAINT `userrole_ibfk_2` FOREIGN KEY (`roleid`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
