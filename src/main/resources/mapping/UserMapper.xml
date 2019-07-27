@@ -7,14 +7,21 @@
         <result column="userName" jdbcType="VARCHAR" property="userName" />
         <result column="passWord" jdbcType="VARCHAR" property="passWord" />
         <result column="realName" jdbcType="VARCHAR" property="realName" />
+    </resultMap>
+
+
+    <resultMap id="UserMap" type="com.zhuang.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="passWord" jdbcType="VARCHAR" property="passWord" />
 
         <!--用户有多个角色-->
         <collection property="roles" ofType="com.zhuang.entity.Role">
-            <result column="rolename" property="rolename"/>
+            <result column="rolename" jdbcType="VARCHAR" property="rolename"/>
 
             <!--角色有多个权限-->
             <collection property="permissions" ofType="com.zhuang.entity.Permission">
-                <result column="permissionname" javaType="permissionname"/>
+                <result column="permissionname" jdbcType="VARCHAR" property="permissionname"/>
             </collection>
         </collection>
     </resultMap>
@@ -36,12 +43,12 @@
         delete from user where id = #{id}
     </delete>
 
-    <select id="getUserList" resultType="BaseResultMap">
+    <select id="getUserList" resultMap="UserMap">
         SELECT
-            u.id id,
-            u.userName userName,
-            r.rolename rolename,
-            p.permissionname permissionname
+            u.*,
+            u.userName as userName,
+            r.rolename as rolename,
+            p.permissionname as permissionname
         FROM
             USER u
             LEFT JOIN userrole ur ON u.id = ur.id
