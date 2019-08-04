@@ -1,4 +1,4 @@
-package com.zhuang.entity;
+package com.zhuang.common.entity;
 
 
 import java.io.Serializable;

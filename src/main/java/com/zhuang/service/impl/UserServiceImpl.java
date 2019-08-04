@@ -1,9 +1,12 @@
 package com.zhuang.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhuang.mapper.UserMapper;
-import com.zhuang.entity.User;
+import com.zhuang.common.entity.User;
 import com.zhuang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUserAll() {
-        return userMapper.getUserAll();
+        //开始分页
+        PageHelper.startPage(1,10);
+        //紧跟查询
+        List<User> userAll = userMapper.getUserAll();
+        //输出分页
+        PageInfo<User> userPageInfo = new PageInfo<User>(userAll);
+
+//        System.out.println(userPageInfo);
+
+//        Properties properties = new Properties();
+//        properties.setProperty()
+
+        return userAll;
     }
 
     @Override

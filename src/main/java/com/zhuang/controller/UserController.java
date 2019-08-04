@@ -1,6 +1,6 @@
 package com.zhuang.controller;
 
-import com.zhuang.entity.User;
+import com.zhuang.common.entity.User;
 import com.zhuang.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

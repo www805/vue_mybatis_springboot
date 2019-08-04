@@ -3,7 +3,7 @@ package com.zhuang.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
-@Configuration
+//@Configuration
 public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
@@ -11,8 +11,8 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
         //登录拦截的管理器
         InterceptorRegistration registration = registry.addInterceptor(new SessionHandlerInterceptor());     //拦截的对象会进入这个类中进行判断
         registration.addPathPatterns("/");
-        registration.addPathPatterns("/sweb/**");
-        registration.excludePathPatterns("/error","/static/**","/logout","/user/**");       //添加不拦截路径
+        registration.addPathPatterns("/**");
+        registration.excludePathPatterns("/error","/static/**","/logout");       //添加不拦截路径
 
     }
 

@@ -1,6 +1,6 @@
 package com.zhuang.mapper;
 
-import com.zhuang.entity.User;
+import com.zhuang.common.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

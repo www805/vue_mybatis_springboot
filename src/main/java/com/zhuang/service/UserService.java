@@ -1,6 +1,6 @@
 package com.zhuang.service;
 
-import com.zhuang.entity.User;
+import com.zhuang.common.entity.User;
 
 import java.util.List;
 

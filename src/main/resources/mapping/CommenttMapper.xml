@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhuang.mapper.CommenttMapper">
+
+
+    <resultMap id="CommentMap" type="com.zhuang.common.entity.Commentt">
+        <result column="ccid" jdbcType="BIGINT" property="id" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+
+        <!--评论人-->
+        <association property="user"  javaType="com.zhuang.common.entity.User">
+            <result column="pid" javaType="INTEGER" property="id"/>
+            <result column="puserName" jdbcType="VARCHAR" property="userName"/>
+            <result column="ppassWord" jdbcType="VARCHAR" property="passWord"/>
+        </association>
+
+        <!--回复人集合-->
+        <collection property="commentts" ofType="com.zhuang.common.entity.Commentt">
+            <result column="ccontent" jdbcType="VARCHAR" property="content" />
+            <result column="ccreatetime" jdbcType="VARCHAR" property="createtime" />
+
+            <!--回复人信息-->
+            <association property="user"  javaType="com.zhuang.common.entity.User">
+                <id column="id2" javaType="INTEGER" property="id"/>
+                <result column="userName2" jdbcType="VARCHAR" property="userName"/>
+                <result column="passWord2" jdbcType="VARCHAR" property="passWord"/>
+            </association>
+
+            <!--回复被回复人信息-->
+            <association property="buser"  javaType="com.zhuang.common.entity.User">
+                <id column="id3" javaType="INTEGER" property="id"/>
+                <result column="userName3" jdbcType="VARCHAR" property="userName"/>
+                <result column="passWord3" jdbcType="VARCHAR" property="passWord"/>
+            </association>
+        </collection>
+    </resultMap>
+
+
+    <!--<select id="getUserAll" resultType="com.zhuang.common.entity.User">-->
+        <!--select * from user-->
+    <!--</select>-->
+
+    <update id="updateComment" parameterType="com.zhuang.common.entity.Commentt" >
+        update commentt set content = #{commentt.content,jdbcType=VARCHAR} where id = #{commentt.id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="saveComment" parameterType="com.zhuang.common.entity.Commentt" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into commentt(`content`,`userid`,`articleid`,`pid`,`replyuserid`) values (#{commentt.content},#{commentt.userid},#{commentt.articleid},#{commentt.pid},#{commentt.replyuserid});
+    </insert>
+
+    <delete id="deleteComment" parameterType="int">
+        delete from commentt where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="getCommentList" parameterType="int" resultMap="CommentMap">
+        SELECT
+            c1.id AS ccid,
+            c1.content AS content,
+            c1.createtime AS createtime,
+            u.id AS pid,
+            u.userName AS puserName,
+            u.PASSWORD AS ppassWord,
+            c2.content AS ccontent,
+            c2.createtime AS ccreatetime,
+            u2.id AS id2,
+            u2.userName AS userName2,
+            u2.PASSWORD AS passWord2,
+          u3.id AS id3,
+            u3.userName AS userName3,
+            u3.PASSWORD	AS passWord3
+        FROM
+            commentt c1
+            INNER JOIN commentt c2 ON c1.id = c2.pid
+            LEFT JOIN USER u ON c1.userid = u.id
+            LEFT JOIN USER u2 ON c2.userid = u2.id
+            left join user u3 on u3.id = c2.replyuserid
+        <where>
+            <if test="id != null">
+                c1.articleid = #{id,jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY
+            c2.id DESC
+    </select>
+
+</mapper>

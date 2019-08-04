@@ -1,10 +1,10 @@
-package com.zhuang.entity;
+package com.zhuang.common.entity;
 
+import com.zhuang.common.entity.Role;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,6 @@ public class User implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +
                 ", realName='" + realName + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

@@ -72,7 +72,7 @@
             },
             initUser:function () {
                 //获取数据
-                axios.post("/user/getUserAll").then(function (value) {
+                axios.get("/user/getUserAll").then(function (value) {
                     app.users = value.data;
                 }).catch(function (reason) {
                     console.log(reason);
@@ -103,7 +103,7 @@
                 });
             },
             delUser:function (id) {
-                axios.post("/user/delUser/" + id).then(function (value) {
+                axios.delete("/user/delUser/" + id).then(function (value) {
                     console.log(value);
                     app.initUser();
                     alert(value.data);
