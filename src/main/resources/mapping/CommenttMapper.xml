@@ -42,7 +42,7 @@
     <!--</select>-->
 
     <update id="updateComment" parameterType="com.zhuang.common.entity.Commentt" >
-        update commentt set content = #{commentt.content,jdbcType=VARCHAR} where id = #{commentt.id,jdbcType=INTEGER}
+        update commentt set content = #{commentt.content,jdbcType=VARCHAR} where id = #{commentt.id,jdbcType=LONGVARBINARY}
     </update>
 
     <insert id="saveComment" parameterType="com.zhuang.common.entity.Commentt" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

@@ -2,6 +2,7 @@ package com.zhuang.mapper;
 
 
 import com.zhuang.common.entity.Commentt;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,12 +15,12 @@ public interface CommenttMapper {
     List<Commentt> getCommentList(@Param("id")int id);
 
     //增加评论
-    int saveComment(@Param("commentt")Commentt commentt);
+    Integer saveComment(@Param("commentt")Commentt commentt);
 
     //删除评论
-    int deleteComment(int id);
+    Integer deleteComment(int id);
 
     //修改评论
-    int updateComment(Commentt commentt);
+    Integer updateComment(@Param("commentt")Commentt commentt);
 
 }

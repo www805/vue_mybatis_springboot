@@ -3,6 +3,8 @@ package com.zhuang.controller;
 import com.sun.org.apache.regexp.internal.RE;
 import com.zhuang.common.entity.Commentt;
 import com.zhuang.common.entity.User;
+import com.zhuang.common.param.CommentParam;
+import com.zhuang.common.param.DeleteCommentParam;
 import com.zhuang.mapper.CommenttMapper;
 import com.zhuang.service.CommentService;
 import io.swagger.annotations.Api;
@@ -21,6 +23,7 @@ public class CommentController {
     private CommentService commentService;
 
     //查询所有评论
+    @ApiOperation(value = "查询所有评论", notes = "查询所有评论")
     @GetMapping("/getComment/{id}")
     public List<Commentt> getCommentList(@PathVariable("id") int id){
         return commentService.getCommentList(id);
@@ -30,8 +33,8 @@ public class CommentController {
     //新增评论
     @ApiOperation(value = "新增评论", notes = "新增评论/或回复")
     @PostMapping("/saveComment")
-    public int saveComment(Commentt commentt){
-        return commentService.saveComment(commentt);
+    public Long saveComment(CommentParam param){
+        return commentService.saveComment(param);
     }
 
     //删除评论
@@ -44,8 +47,8 @@ public class CommentController {
     //修改评论
     @ApiOperation(value = "修改评论", notes = "修改一条评论")
     @PutMapping("/updateComment")
-    public int updateComment(@RequestBody @Valid Commentt commentt) {
-        return commentService.updateComment(commentt);
+    public int updateComment(DeleteCommentParam param) {
+        return commentService.updateComment(param);
     }
 
 
