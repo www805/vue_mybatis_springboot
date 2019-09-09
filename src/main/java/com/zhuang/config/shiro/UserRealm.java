@@ -1,10 +1,14 @@
 package com.zhuang.config.shiro;
 
+import com.zhuang.common.entity.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 自定义验证类
@@ -19,6 +23,13 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("执行权限逻辑");
+
+        //获取登录成功的用户信息，登录成功后会保存到session里面
+        User user = (User) principalCollection.fromRealm(this.getClass().getName()).iterator().next();
+
+        //把权限全部拿出来
+        List<String> permissionList = new ArrayList();//最终添加到 info.addStringPermissions
+
 
         //给资源进行授权
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
